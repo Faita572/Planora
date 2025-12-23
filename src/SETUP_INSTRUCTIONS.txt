@@ -1,0 +1,86 @@
+=================================================================
+PLANORA EVENT MANAGEMENT SYSTEM - SETUP INSTRUCTIONS
+=================================================================
+
+PHASE 1: DATABASE SETUP (MySQL)
+--------------------------------
+1. Open MySQL Workbench or Terminal
+2. Run all commands from database_setup.sql file
+3. Verify that the planora_db database is created
+4. Confirm that users, events, and bookings tables are created
+
+PHASE 2: JAVA PROJECT CONFIGURATION
+-------------------------------------
+1. JDK Installation:
+   - Ensure JDK 17 or higher is installed
+   - Verify: java -version
+   - Verify: javac -version
+
+2. MySQL Connector JAR Setup:
+   - Download mysql-connector-java-x.x.x.jar
+   - In VS Code Java Projects view (left sidebar):
+     * Click on "PLANORA" project
+     * Expand "Referenced Libraries"
+     * Click the "+" button
+     * Select the MySQL Connector JAR file
+   - Save the project
+
+PHASE 3: CONFIGURE DATABASE CONNECTION
+----------------------------------------
+1. Open: src/com/planora/util/DBConnection.java
+2. Update these lines:
+   - private static final String URL = "jdbc:mysql://localhost:3306/planora_db";
+   - private static final String USER = "root";  // Change if needed
+   - private static final String PASSWORD = "your_password";  // <-- PUT YOUR MySQL PASSWORD HERE
+3. Save the file
+
+PHASE 4: RUN THE APPLICATION
+------------------------------
+1. Open: src/com/planora/main/Main.java
+2. Click the "Run" button (top right) or press Ctrl+F5
+3. Check the console output for the message:
+   "Project successfully connected and data saved!"
+4. The application should display all events in the database
+
+PROJECT STRUCTURE
+------------------
+src/com/planora/
+├── main/
+│   └── Main.java (Entry point)
+├── model/
+│   ├── User.java (User POJO)
+│   └── Event.java (Event POJO)
+├── dao/
+│   ├── UserDAO.java (User data access)
+│   └── EventDAO.java (Event data access)
+└── util/
+    └── DBConnection.java (Database connection)
+
+KEY FEATURES
+-------------
+✓ JDBC connection to MySQL database
+✓ DAO Pattern implementation
+✓ CRUD operations (Create, Read)
+✓ PreparedStatement for SQL injection prevention
+✓ Try-with-resources for resource management
+✓ Exception handling for database operations
+
+TROUBLESHOOTING
+---------------
+1. "ClassNotFoundException: com.mysql.cj.jdbc.Driver"
+   - Ensure MySQL Connector JAR is added to Referenced Libraries
+
+2. "Connection refused"
+   - Verify MySQL server is running
+   - Check database credentials in DBConnection.java
+
+3. "Access denied for user"
+   - Update PASSWORD in DBConnection.java with correct MySQL password
+
+4. "No database selected"
+   - Ensure database_setup.sql has been executed
+
+=================================================================
+For more information, refer to the Java source files and their
+detailed comments.
+=================================================================
